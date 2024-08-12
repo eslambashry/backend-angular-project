@@ -22,26 +22,60 @@ const userSchema = new Schema({
         enum:['Host','Guest'],
         default:'Guest'
     },
-    // Reviews: 
-    //   {
-    //     type:String,
-    //     reviewId: string,
-    //     propertyId: string,
-    //     rating: number,
-    //     comment: string,
-    //     date: string
-    //   },
-    // Bookings: {
-    //       type:String,
-    //       bookingId: string,
-    //       propertyId: string,
-    //       checkInDate: string,
-    //       checkOutDate: string,
-    //       status: string  
-
-    // },
-    //   favoriteProperties: String
-}, {
+    Reviews: [
+        {
+          productId: {
+            type: Schema.Types.ObjectId,
+            ref: 'product',
+            required: true,
+          },
+          rating: {
+            type: Number,
+            required: true,
+          },
+          comment: {
+            type: String,
+            required: true,
+          },
+          date: {
+            type: Date,
+            default: Date.now,
+          },
+        },
+      ],
+      Bookings: [
+        {
+          bookingId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Booking',
+            required: true,
+          },
+          productId: {
+            type: Schema.Types.ObjectId,
+            ref: 'product',
+            required: true,
+          },
+          checkInDate: {
+            type: Date,
+            required: true,
+          },
+          checkOutDate: {
+            type: Date,
+            required: true,
+          },
+          status: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
+      favoriteProperties: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'product',
+        },
+      ]},
+      {
     timestamps: true 
   }
 )
@@ -57,14 +91,14 @@ export const userModel = model("User",userSchema)
 // Bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
 // const reviewSchema = new Schema({
 //   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-//   propertyId: { type: String, required: true },
+//   productId: { type: String, required: true },
 //   rating: { type: Number, required: true },
 //   comment: { type: String, required: true },
 //   date: { type: Date, default: Date.now }
 // });
 // const bookingSchema = new Schema({
 //   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-//   propertyId: { type: String, required: true },
+//   productId: { type: String, required: true },
 //   checkInDate: { type: Date, required: true },
 //   checkOutDate: { type: Date, required: true },
 //   status: { type: String, required: true }

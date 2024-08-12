@@ -46,7 +46,7 @@ export const register = async (userData) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) throw new Error('Invalid password');
   
-    const token = jwt.sign({ id: user._id, email: user.email }, secretKey, {
+    const token = jwt.sign({ id: user._id, email: user.email ,role: user.role}, secretKey, {
       expiresIn: '1h'
     });
   
@@ -59,22 +59,22 @@ export const getAllUSer = async (req, res) => {
     res.status(201).json({ message: "Done", users })
 }
 
-export const signIn = async(req,res) =>{
-    const { email, password } = req.body;
+// export const signIn = async(req,res) =>{
+//     const { email, password } = req.body;
 
-    const emailExsited = await userModel.findOne({email})
-    const passwordExsited = await userModel.findOne({password})
+//     const emailExsited = await userModel.findOne({email})
+//     const passwordExsited = await userModel.findOne({password})
 
-    if(!emailExsited){
-    return res.status(400).json({ message: "InCorrect email" })
-    }
+//     if(!emailExsited){
+//     return res.status(400).json({ message: "InCorrect email" })
+//     }
 
-    if(!passwordExsited){
-    return res.status(400).json({ message: "InCorrect password" })
-    }
+//     if(!passwordExsited){
+//     return res.status(400).json({ message: "InCorrect password" })
+//     }
 
-    res.status(201).json({message:"Login Successfuly"})
-}
+//     res.status(201).json({message:"Login Successfuly"})
+// }
 
 
 // export const updateUser = async(req,res) => {
@@ -101,19 +101,19 @@ export const signIn = async(req,res) =>{
 
 //     }
 
-export const findUserById = async(req,res)=>{
-    const {id} = req.params
+// export const findUserById = async(req,res)=>{
+//     const {id} = req.params
 
-    const exsisted = await userModel.findById(id)
+//     const exsisted = await userModel.findById(id)
 
-    if(exsisted){
-        res.status(201).json({message:"User Found Successfully",exsisted})
-    }
-    else{
-        res.status(404).json({message:"User Not Found"})
+//     if(exsisted){
+//         res.status(201).json({message:"User Found Successfully",exsisted})
+//     }
+//     else{
+//         res.status(404).json({message:"User Not Found"})
 
-    }
-}
+//     }
+// }
 
 
 // export const findUsersByFirstLetterAndAge = async(req,res)=>{
