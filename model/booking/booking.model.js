@@ -1,27 +1,21 @@
-import {model,Schema} from "mongoose";
+import { model, Schema } from "mongoose";
 
 const bookingSchema = new Schema({
-    "productId": {
-         type: Schema.Types.ObjectId,
-        ref:'product',
-        require:true
-    }, 
-    "guestId": {
-        type: Schema.Types.ObjectId,
-        ref:'User',
-        require:true
-    },  
-    "checkInDate": Date,
-    "checkOutDate": Date,
-    "totalPrice": Number,
-    "status": { type: String, enum: ["Confirmed", "Pending", "Cancelled"] },
-    "createdAt": Date
+    productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    guestId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    guestName: { type: String, required: true },
+    guestEmail: { type: String, required: true },
+    checkInDate: { type: Date, required: true },
+    checkOutDate: { type: Date, required: true },
+    totalPrice: { type: Number, required: true },
+    status: { type: String, default: 'Pending' },
+    createdAt: { type: Date, default: Date.now }
 }, {
-    timestamps: true 
-  }
+    timestamps: true
+}
 )
 
 
 
-export const bookingModel = model("Booking",bookingSchema)
+export const bookingModel = model("Booking", bookingSchema)
 

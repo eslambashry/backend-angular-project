@@ -13,15 +13,43 @@ export const getproducts = async (req, res,next) => {
     }
 }
 
-export const addNewProduct = async (req, res,next) => {
+// export const addNewProductt = async (req, res,next) => {
     
 
-    let product = await productModel.insertMany(req.body)
+//     let product = await productModel.insertMany(req.body)
 
-    res.status(201).json({ message: "Post Added Successfully", product })
-}
+//     res.status(201).json({ message: "Post Added Successfully", product })
+// }
 
 
+
+export const addNewProduct = async (req, res) => {
+    const { title, description, price, location, ownerId, ownerName, ownerEmail, amenities, photos, reviews, rating, bookingDetails, type } = req.body;
+    try {
+        const newProduct = new productModel({
+            title,
+            description,
+            price,
+            location,
+            owner: {
+              id: ownerId,
+              name: ownerName,
+              email: ownerEmail
+            },
+            amenities,
+            photos,
+            reviews,
+            rating,
+            bookingDetails,
+            type
+          });
+        ;
+        const savedProduct = await newProduct.save();
+        res.status(201).json({ message: "Product Added Successfully", savedProduct });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 
 export const getProductById = async(req,res,next) => {
 
@@ -37,7 +65,7 @@ export const getProductById = async(req,res,next) => {
     }
 }
 
-
+/////////
 
 // export const deletePost = async (req, res) => {
 //     let id = req.body;

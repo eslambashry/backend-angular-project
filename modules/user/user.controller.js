@@ -46,7 +46,7 @@ export const register = async (userData) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) throw new Error('Invalid password');
   
-    const token = jwt.sign({ id: user._id, email: user.email ,role: user.role}, secretKey, {
+    const token = jwt.sign({ id: user._id, email: user.email ,role: user.role, name:user.name}, secretKey, {
       expiresIn: '1h'
     });
   
