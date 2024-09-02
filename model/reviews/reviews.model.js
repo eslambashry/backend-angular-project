@@ -2,19 +2,19 @@ import {model,Schema} from "mongoose";
 
 const reviewsSchema = new Schema({
 
-    "productId":{
+    productId:{
         type: Schema.Types.ObjectId,
         ref:'product',
         require:true
     },  
-    "userId":{
+    userId:{
         type: Schema.Types.ObjectId,
-        ref:'User',
+        ref:'user',
         require:true
     },  
-    "rating": { type: Number, min: 1, max: 5 },
-    "comment": String,
-    "createdAt": Date
+    rating: { type: Number, min: 1, max: 5 },
+    comment: String,
+    createdAt: Date
 
 }, {
     timestamps: true 

@@ -45,7 +45,7 @@ export const addNewProduct = async (req, res) => {
           });
         ;
         const savedProduct = await newProduct.save();
-        res.status(201).json({ message: "Product Added Successfully", savedProduct });
+        res.status(201).json({ message: "Hotel Added Successfully", savedProduct });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

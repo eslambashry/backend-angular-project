@@ -21,11 +21,17 @@ export const createBooking = async (req, res) => {
         const savedBooking = await newBooking.save();
     
         // Respond with the created booking
-        res.status(201).json(savedBooking);
+        res.status(201).json("Booking Done Successfully",savedBooking);
       } catch (error) {
         console.error('Error creating booking:', error);
         res.status(500).json({ message: 'Internal Server Error' });
       }
-}
 
+    }
+    
+    export const getAllBooking = async(req,res) => {
+      const bookings = await bookingModel.find()
+
+      res.status(201).json({message:"Bookings",bookings})
+    }
 

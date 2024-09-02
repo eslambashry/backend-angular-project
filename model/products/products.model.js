@@ -2,12 +2,7 @@ import {Schema,model} from "mongoose";
 
 const productsSchema = new Schema (
     {
-      // hostId: {
-      //   type: Schema.Types.ObjectId,
-      //   ref:'User',
-      //   require:true
-      // },
-        title: {
+       title: {
           type: String        },
         description: {
           type: String,
@@ -42,7 +37,7 @@ const productsSchema = new Schema (
         owner: {
           id: {
             type: Schema.Types.ObjectId,
-            ref:"User",
+            ref:"user",
             required: false
           },
           name: {

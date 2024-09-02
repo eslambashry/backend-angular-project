@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 
 const bookingSchema = new Schema({
-    productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    productId: { type: Schema.Types.ObjectId, ref: 'product', required: true },
     guestId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     guestName: { type: String, required: true },
     guestEmail: { type: String, required: true },
