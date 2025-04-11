@@ -30,12 +30,7 @@ export const addNewProduct = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: 'Please provide a hotel image' });
         }
-        console.log(req.body.owner);
-        console.log(req.body);
-        console.log(location.address
-            ,location.city
-            ,location.country
-            ,location.zipCode);
+
         
         // console.log(req.file);
         
