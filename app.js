@@ -15,6 +15,8 @@ config({path: path.resolve('./config/.env')})
 const app = express()
 const port = process.env.PORT
 
+app.get('/', (req, res) => res.send('Backend is running ✔️')); 
+
     // Configure CORS to allow requests from your frontend origin
     app.use(cors({
         // origin: ['http://localhost:3000','http://localhost:3001','http://localhost:3002','http://localhost:3003'], // Allow requests from this origin
@@ -24,7 +26,6 @@ const port = process.env.PORT
     }));
 
 
-app.get('/', (req, res) => res.send('Backend is running ✔️')); 
 app.use(cors())
 app.use(express.json());
  
