@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
-export const connectedDB = mongoose.connect(`mongodb://127.0.0.1:27017/Angular-backend`)
-.then(() => { console.log("DB conected"); })
-.catch(() => { console.log("Conection Fail"); })
+export const connectedDB = async () => { 
+    mongoose.connect(process.env.DB_CONNECTION_URL)
+.then(() => { console.log("Database Connected ✔️"); })
+.catch((err) => { console.log("Conection Fail ⚠️",err); })
+}

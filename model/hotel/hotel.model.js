@@ -1,9 +1,10 @@
 import {Schema,model} from "mongoose";
 
-const productsSchema = new Schema (
+const hotelSchema = new Schema (
     {
        title: {
-          type: String        },
+          type: String        
+        },
         description: {
           type: String,
           required: false
@@ -56,37 +57,45 @@ const productsSchema = new Schema (
               type: String,
               required: false
             },
+            secure_url:{
+              type: String,
+              required: true,
+          },
+          public_id: {
+              type: String,
+              required: true,
+          },
             caption: {
               type: String,
               required: false
             }
           }
         ],
-        reviews: [
-          {
-            reviewId: {
-              type: Schema.Types.ObjectId,
-              required: false
-            },
-            userId: {
-              type: Schema.Types.ObjectId,
-              // ref:"User",
-              required: false
-            },
-            rating: {
-              type: Number,
-              required: false
-            },
-            comment: {
-              type: String,
-              required: false
-            },
-            date: {
-              type: Date,
-              default: Date.now
-            }
-          }
-        ],
+        // reviews: [
+        //   {
+        //     reviewId: {
+        //       type: Schema.Types.ObjectId,
+        //       required: false
+        //     },
+        //     userId: {
+        //       type: Schema.Types.ObjectId,
+        //       // ref:"User",
+        //       required: false
+        //     },
+        //     rating: {
+        //       type: Number,
+        //       required: false
+        //     },
+        //     comment: {
+        //       type: String,
+        //       required: false
+        //     },
+        //     date: {
+        //       type: Date,
+        //       default: Date.now
+        //     }
+        //   }
+        // ],
         rating: Number,
         bookingDetails: {
           checkInDate: {
@@ -107,7 +116,7 @@ const productsSchema = new Schema (
       }
   ,{timestamps:true,versionKey:false})
 
-export const productModel = model("product",productsSchema)
+export const hotelModel = model("hotel",hotelSchema)
 
 
 

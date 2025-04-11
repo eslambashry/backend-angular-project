@@ -17,6 +17,5 @@ const PaymentsgSchema = new Schema({
 )
 
 
-
 export const PaymentsModel = model("Payments",PaymentsgSchema)
 

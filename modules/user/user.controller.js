@@ -3,6 +3,7 @@ import { sendEmailService } from "../../services/sendEmailServecies.js"
 import { emailTemplate } from "../../utilities/emailTemplate.js"
 import {generateToken} from "../../utilities/tokenFunctions.js"
 import jwt from 'jsonwebtoken';
+import pkg from 'bcrypt'
 
 
 
@@ -16,6 +17,7 @@ export const register = async(req,res,next) => {
       gender,
       phoneNumber,
       address,
+      role,
   } = req.body
   //is email exsisted
   const isExsisted = await userModel.findOne({email})
@@ -26,10 +28,10 @@ const token = generateToken({
   payload:{
       email,
   },
-  signature: "stitch",
-  expiresIn: '1h',
 })
-  const confirmationLink = `${req.protocol}://${req.headers.host}/auth/confirm/${token}`
+
+
+  const confirmationLink = `confirm/${token}` // TODO confirm api -> 'isConfirmed': true
   const isEmailSent = sendEmailService({
       to:email,
       subject:'Confirmation Email',
@@ -44,20 +46,24 @@ const token = generateToken({
   if(!isEmailSent){
       return res.status(400).json({message:'fail to sent confirmation email'})
   }
+
+  const hashedPassword = pkg.hashSync(password, +process.env.SALT_ROUNDS)
+
+
   const user = new userModel({
       userName,
       email,
-      password,
+      password:hashedPassword,
       confirmPassword,
       age, 
       gender,
       phoneNumber,
       address,
+      role
   })
   const saveUser = await user.save()
   res.status(201).json({message:'done', saveUser})
 }
-import pkg from 'bcrypt'
 export const login = async(req,res,next) => {
     const {email,password} = req.body
 
@@ -77,6 +83,7 @@ export const login = async(req,res,next) => {
           email,
           _id: userExsist._id,
           role: userExsist.role,
+          userName: userExsist.userName
         },
         'stitch',
         { expiresIn: '1h' }
@@ -92,7 +99,7 @@ export const login = async(req,res,next) => {
         },
         {new: true},
      )
-     res.status(200).json({message: 'Login Success', userUpdated})
+     res.status(200).json({message: 'Login Success', token , userUpdated})
 }
 
 

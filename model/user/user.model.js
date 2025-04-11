@@ -23,8 +23,8 @@ const userSchema = new Schema({
     },
     role:{
         type:String,
-        default:'user',
-        enum:['user','admin']
+        enum:['Guest','Host'],
+        default:'Guest'
     },
     phoneNumber:{
         type:String,
@@ -52,9 +52,6 @@ const userSchema = new Schema({
     forgetCode:String,
 },{timestamps:true})
 
-    userSchema.pre('save',function(){
-        this.password = pkg.hashSync(this.password, 8)
-    })
 
 export const userModel = model('user', userSchema)
 

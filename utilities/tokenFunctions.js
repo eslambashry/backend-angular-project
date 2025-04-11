@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-// ? ========================= generation ==============================
+// ~ ========================= generation ==============================
 export const generateToken = ({
   payload = {},
   signature = "defualtSignature",
@@ -14,15 +14,20 @@ export const generateToken = ({
   return token
 }
 
-// ^ =========================  Verify ==============================
+
+// =========================  Verify ==============================
 export const verifyToken = ({
+  
   token = '',
-  signature = "defualtSignature",
+  signature = process.env.DEFAULT_SIGNATURE, // ! process.env.DEFAULT_SIGNATURE
 } = {}) => {
+
   // check if the payload is empty object
   if (!token) {
     return false
   }
+  
   const data = jwt.verify(token, signature)
+  
   return data
 }
